@@ -10,6 +10,8 @@ import com.watabou.utils.Random;
 import com.watabou.towngenerator.medieval.Generator;
 import com.watabou.towngenerator.medieval.Model;
 import com.watabou.towngenerator.drawing.CityMap;
+import com.watabou.towngenerator.drawing.Palette;
+
 import com.watabou.towngenerator.ui.Button;
 import com.watabou.towngenerator.ui.Tooltip;
 
@@ -48,8 +50,12 @@ class TownScene extends Scene {
 		var largeCity = new Button("Large City");
     largeCity.click.add(function() { set_size(24, 40); });
 
+                var style = new Button("Style");
+                style.click.add(function() { set_palette(); });
+
+
 		var pos = 0.0;
-		for (btn in [smallTown, largeTown, smallCity, largeCity]) {
+		for (btn in [smallTown, largeTown, smallCity, largeCity, style]) {
 			btn.y = pos;
 			pos += btn.height + 1;
 			buttons.addChild( btn );
@@ -70,6 +76,15 @@ class TownScene extends Scene {
 
   	Game.switchScene( TownScene );
   }
+
+        private function set_palette(): Void {
+
+            CityMap.palette = Palette.another();
+
+            map.draw();
+
+        }
+
 
 	override public function layout():Void {
 		map.x = rWidth / 2;
